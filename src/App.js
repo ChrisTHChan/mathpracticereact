@@ -1,18 +1,16 @@
 import React, {Component} from 'react';
-import {CSSTransition} from "react-transition-group"
-import './App.css';
-import Question from './Question';
-import InputField from './InputField';
-import SubmitButton from './SubmitButton';
-import NextButton from './NextButton';
-import MenuButton from './MenuButton';
-import QuitButton from './QuitButton';
+import './stylesheets/App.css';
+import Question from './components/Question';
+import InputField from './components/InputField';
+import SubmitButton from './components/SubmitButton';
+import NextButton from './components/NextButton';
+import MenuButton from './components/MenuButton';
+import QuitButton from './components/QuitButton';
 import Particles from 'react-particles-js';
-import WrongAnswerTip from './WrongAnswerTip';
-import QuitMenu from './QuitMenu'
-import SignIn from './SignIn.js'
-import logo from './logo.png'
-
+import WrongAnswerTip from './components/WrongAnswerTip';
+import QuitMenu from './components/QuitMenu'
+import SignIn from './components/SignIn'
+import logo from './assets/logo.png'
 
 const particlesOptions = {
   particles: {
@@ -231,7 +229,7 @@ class App extends Component {
     } else if (this.state.topicState === '/') {
       this.setState({questionAnswer: Math.floor(this.state.num1 / this.state.num2)})
     }
-
+    //This part of the function is to add the points after the answer to the question is checked
     if (parseInt(this.state.userAnswer) === (this.state.num1 + this.state.num2) && this.state.topicState === '+') {
       this.setState({answerCorrect: "yes"})
       this.setState({score: this.state.score + 1})
@@ -327,7 +325,7 @@ class App extends Component {
     this.setState({appState: 'menu'})
   }
 
-  //for this function literally just copy and paste default state object into this setstate function, except for appstate
+  //for this function literally just copy and paste default state object into this setstate function
   onQuitFunction2 = () => {
     this.setState({
       appState: 'menu',
@@ -382,14 +380,10 @@ class App extends Component {
           <Particles className='particles' params={particlesOptions}/>
           <h1>Welcome to MathPractice, Guest!</h1>
           <h3>Answer the following questions to the best of your ability!</h3>
-          <CSSTransition in={true} appear={true} timeout={500} classNames="fade">
-          <div>
           <Question num1={this.state.num1} sign={this.state.topicState} num2={this.state.num2} note={this.state.note}/>
           <h3>Good job! You got the answer right!</h3>
           <NextButton nextQuestion={this.onNextQuestion}/>
           <QuitButton quitFunction={this.onQuitFunction}/>
-          </div>
-          </CSSTransition>
         </div>
       );
     } else if (this.state.answerCorrect === 'no' && this.state.appState === 'active') {
@@ -400,15 +394,11 @@ class App extends Component {
           <Particles className='particles' params={particlesOptions}/>
           <h1>Welcome to MathPractice, Guest!</h1>
           <h3>Answer the following questions to the best of your ability!</h3>
-          <CSSTransition in={true} appear={true} timeout={500} classNames="fade">
-          <div>
           <Question num1={this.state.num1} sign={this.state.topicState} num2={this.state.num2} note={this.state.note}/>
           <h3>Awww, you got the answer wrong... The answer is <u>{this.state.questionAnswer}</u></h3>
           <NextButton nextQuestion={this.onNextQuestion}/>
           <WrongAnswerTip mode={this.state.topicState} digits={this.state.digitState}/>
           <QuitButton quitFunction={this.onQuitFunction}/>
-          </div>
-          </CSSTransition>
         </div>
       );
     } else if (this.state.answerCorrect === null && this.state.appState === 'active') {
@@ -419,8 +409,6 @@ class App extends Component {
           <Particles className='particles' params={particlesOptions}/>
           <h1>Welcome to MathPractice, Guest!</h1>
           <h3>Answer the following questions to the best of your ability!</h3>
-          <CSSTransition in={true} appear={true} timeout={500} classNames="fade">
-          <div>
           <Question num1={this.state.num1} sign={this.state.topicState} num2={this.state.num2} note={this.state.note}/>
           <InputField inputChange={this.onInputChange} enterPress={this.onEnterPress}/><br/>
           <SubmitButton submitAnswer={this.onSubmitAnswer}/>
@@ -428,8 +416,6 @@ class App extends Component {
           <h1>questions correct: {this.state.questionsCorrect}</h1>
           <h1>questions incorrect: {this.state.questionsIncorrect}</h1>
           <QuitButton quitFunction={this.onQuitFunction}/>
-          </div>
-          </CSSTransition>
         </div>
       );
     } else if (this.state.appState === 'menu') {
@@ -438,7 +424,6 @@ class App extends Component {
           <Particles className='particles' params={particlesOptions}/>
           <h1>Welcome to MathPractice, Guest!</h1>
           <h3>Choose a topic to practice!</h3>
-          <CSSTransition in={true} appear={true} timeout={500} classNames="fade">
           <div className='MenuContainer'>
             <MenuButton startGame={this.onStartGame1add} label="One Digit Addition!"/>
             <MenuButton startGame={this.onStartGame2add} label="Two Digit Addition!"/>
@@ -457,7 +442,6 @@ class App extends Component {
             <MenuButton startGame={this.onStartGame3div} label="Four Digit by One Digit Division!"/>
             <MenuButton startGame={this.onStartGame4div} label="Four Digit by Two Digit Division!"/>
           </div>
-          </CSSTransition>
         </div>
       )
     } else if (this.state.appState === 'signin') {
@@ -466,12 +450,10 @@ class App extends Component {
             <Particles className='particles' params={particlesOptions}/>
               <h1>Welcome to MathPractice!</h1>
               <h3>Please Log In, Register, or Continue as Guest!</h3>
-              <CSSTransition in={true} appear={true} timeout={500} classNames="fade">
                 <div>
                   <img src={logo} alt='' height="85px" width="auto" className="logo"/>
                   <SignIn toMenu={this.toMenu}/>
                 </div>
-              </CSSTransition>
           </div>
       )
     }

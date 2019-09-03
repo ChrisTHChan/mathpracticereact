@@ -1,12 +1,12 @@
 import React from 'react';
-import columnaddimg from './columnaddimg.svg'
-import subtraction from './subtraction.gif'
-import subborrow from './minusborrow.png'
-import multtable from './multtable.jpg'
-import mult1 from './mult1.gif'
-import mult2 from './mult2.gif'
-import mult3 from './mult3.gif'
-import mult4 from './mult4.gif'
+import columnaddimg from './../assets/columnaddimg.svg'
+import subtraction from './../assets/subtraction.gif'
+import subborrow from './../assets/minusborrow.png'
+import multtable from './../assets/multtable.jpg'
+import mult1 from './../assets/mult1.gif'
+import mult2 from './../assets/mult2.gif'
+import mult3 from './../assets/mult3.gif'
+import mult4 from './../assets/mult4.gif'
 
 
 const WrongAnswerTip = (props) => {
