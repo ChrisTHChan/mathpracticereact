@@ -7,6 +7,7 @@ import mult1 from './../assets/mult1.gif'
 import mult2 from './../assets/mult2.gif'
 import mult3 from './../assets/mult3.gif'
 import mult4 from './../assets/mult4.gif'
+import div1 from './../assets/div1.gif'
 
 
 const WrongAnswerTip = (props) => {
@@ -332,7 +333,7 @@ and there is your answer! &quot;<b>8</b>&quot;</p>								</td>
     } else if (props.mode === '-' && props.digits !== 1) {
         return (
             <div>
-                <h3>Column addition is much like column addition, do it line by line!</h3>
+                <h3>Column subtraction is much like column addition, do it line by line!</h3>
 				<h3>However when the top number in one column is bigger than the number under it...</h3>
 				<h3>We have to borrow a "1" from the number in the next digits column...</h3>
 				<h3>and then we add a tens digit to the smaller top number in the column were doing!</h3>
@@ -365,11 +366,34 @@ and there is your answer! &quot;<b>8</b>&quot;</p>								</td>
         )
 	} else if (props.mode === '/' && props.digits === 1) {
         return (
-            <h1>PLACEHOLDER</h1>
+			<div></div>
         )
     } else if (props.mode === '/' && props.digits !==1) {
         return (
-            <h1>PLACEHOLDER</h1>
+            <div>
+				<h3>What is division?</h3>
+				<h5>
+				Division is breaking a number up into an equal number of parts.
+
+Example:
+
+20 divided by 4 = ?
+
+If you take 20 things and put them into four equal sized groups, there will be 5 things in each group. The answer is 5.
+				</h5>
+				<img src={div1} alt=''/><br/>
+				<h3>Signs for Division</h3>
+				<h5>There are a number of signs that people may use to indicate division. The most common one is ÷, but the backslash / is also used. Sometimes people will write one number on top of another with a line between them. This is also called a fraction.</h5>
+				<h5>a ÷ b,
+				a/b</h5>
+				<h3>Dividend, Divisor, and Quotient</h3>
+				<h5>Each part of a division equation has a name. The three main names are the dividend, the divisor, and the quotient.
+Dividend - The dividend is the number you are dividing up
+Divisor - The divisor is the number you are dividing by
+Quotient - The quotient is the answer
+Dividend ÷ Divisor = Quotient</h5>
+				<h2>Remember, division is just the opposite of multiplication!</h2>
+			</div>
         )
     }
 }

@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import './stylesheets/App.css';
 import Question from './components/Question';
 import InputField from './components/InputField';
-import SubmitButton from './components/SubmitButton';
 import NextButton from './components/NextButton';
 import MenuButton from './components/MenuButton';
 import QuitButton from './components/QuitButton';
@@ -11,6 +10,8 @@ import WrongAnswerTip from './components/WrongAnswerTip';
 import QuitMenu from './components/QuitMenu'
 import SignIn from './components/SignIn'
 import logo from './assets/logo.png'
+import StatsDialog from './components/StatsDialog'
+import SignUpDialog from './components/SignUpDialog'
 
 const particlesOptions = {
   particles: {
@@ -54,116 +55,170 @@ class App extends Component {
       questionAnswer: 0,
       userAnswer: 0,
       answerCorrect: null,
-      score: 0,
       questionsCorrect: 0,
       questionsIncorrect: 0,
+      showStats: false,
+      showSignUpDialog: false,
+      isSignedIn: false,
+      user: {
+        id: '',
+        name: '',
+        email: '',
+        totalQuestionsAnswered: 0,
+        totalQuestionsCorrect: 0,
+        totalQuestionsIncorrect: 0,
+      }
     }
   }
   
-  onStartGame1add = () => {
+  loadUser = (data) => {
+    this.setState({user: {
+      id: data.id,
+      name: data.name,
+      email: data.email,
+      totalQuestionsAnswered: data.questionsAnswered,
+      totalQuestionsCorrect: data.questionsCorrect,
+      totalQuestionsIncorrect: data.questionsIncorrect,
+    }})
+  }
+
+  openRegisterDialog = () => {
+    this.setState({showSignUpDialog: true})
+  }
+
+  handleSignUp = () => {
+    this.setState({showSignUpDialog: false})
+  }
+
+  handleCloseStats = () => {
+    this.setState({showStats: false})
+  }
+
+  handleStatsTabClick = () => {
+    this.setState({showStats: true})
+  }
+
+  handleSignInState = () => {
+    this.setState({isSignedIn: true})
+  }
+
+  handleSignOut = () => {
+    this.setState({appState: 'signin'})
+    this.setState({isSignedIn: false})
+    this.setState({user: {
+      id: '',
+      name: '',
+      email: '',
+      totalQuestionsAnswered: 0,
+      totalQuestionsCorrect: 0,
+      totalQuestionsIncorrect: 0,
+    }})
+  }
+  
+  initNumDigit = (digit) => {
+    if (digit === 1) {
+      this.setState({num1: this.getRandomNumber(1, 10)})
+      this.setState({num2: this.getRandomNumber(1, 10)})
+    } else if (digit === 2) {
+      this.setState({num1: this.getRandomNumber(10, 100)})
+      this.setState({num2: this.getRandomNumber(10, 100)})
+    } else if (digit === 3) {
+      this.setState({num1: this.getRandomNumber(100, 1000)})
+      this.setState({num2: this.getRandomNumber(100, 1000)})
+    } else if (digit === 4) {
+      this.setState({num1: this.getRandomNumber(1000, 10000)})
+      this.setState({num2: this.getRandomNumber(1000, 10000)})
+    }
+  }
+
+  initAddGame = (digit) => {
     this.setState({appState: 'active'})
-    this.setState({digitState: 1})
-    this.setState({num1: this.getRandomNumber(1, 10)})
-    this.setState({num2: this.getRandomNumber(1, 10)})
+    this.initNumDigit(digit)
     this.setState({topicState: '+'})
+  }
+
+  onStartGame1add = () => {
+    this.initAddGame(1)
+    this.setState({digitState: 1})
   }
 
   onStartGame2add = () => {
-    this.setState({appState: 'active'})
+    this.initAddGame(2)
     this.setState({digitState: 2})
-    this.setState({num1: this.getRandomNumber(10, 100)})
-    this.setState({num2: this.getRandomNumber(10, 100)})
-    this.setState({topicState: '+'})
   }
 
   onStartGame3add = () => {
-    this.setState({appState: 'active'})
+    this.initAddGame(3)
     this.setState({digitState: 3})
-    this.setState({num1: this.getRandomNumber(100, 1000)})
-    this.setState({num2: this.getRandomNumber(100, 1000)})
-    this.setState({topicState: '+'})
   }
 
   onStartGame4add = () => {
-    this.setState({appState: 'active'})
+    this.initAddGame(4)
     this.setState({digitState: 4})
-    this.setState({num1: this.getRandomNumber(1000, 10000)})
-    this.setState({num2: this.getRandomNumber(1000, 10000)})
-    this.setState({topicState: '+'})
+  }
+  
+  initMultGame = (digit) => {
+    this.setState({appState: 'active'})
+    this.initNumDigit(digit)
+    this.setState({topicState: '*'})
   }
 
   onStartGame1mult = () => {
-    this.setState({appState: 'active'})
+    this.initMultGame(1)
     this.setState({digitState: 1})
-    this.setState({num1: this.getRandomNumber(1, 10)})
-    this.setState({num2: this.getRandomNumber(1, 10)})
-    this.setState({topicState: '*'})
   }
 
   onStartGame2mult = () => {
-    this.setState({appState: 'active'})
+    this.initMultGame(2)
     this.setState({digitState: 2})
-    this.setState({num1: this.getRandomNumber(10, 100)})
-    this.setState({num2: this.getRandomNumber(10, 100)})
-    this.setState({topicState: '*'})
   }
 
   onStartGame3mult = () => {
-    this.setState({appState: 'active'})
+    this.initMultGame(3)
     this.setState({digitState: 3})
-    this.setState({num1: this.getRandomNumber(100, 1000)})
-    this.setState({num2: this.getRandomNumber(100, 1000)})
-    this.setState({topicState: '*'})
   }
 
   onStartGame4mult = () => {
-    this.setState({appState: 'active'})
+    this.initMultGame(4)
     this.setState({digitState: 4})
-    this.setState({num1: this.getRandomNumber(1000, 10000)})
-    this.setState({num2: this.getRandomNumber(1000, 10000)})
-    this.setState({topicState: '*'})
+  }
+
+  initSubGame = (digit) => {
+    this.setState({appState: 'active'})
+    this.initNumDigit(digit)
+    this.setState({topicState: '-'})
   }
 
   onStartGame1sub = () => {
-    this.setState({appState: 'active'})
+    this.initSubGame(1)
     this.setState({digitState: 1})
-    this.setState({num1: this.getRandomNumber(1, 10)})
-    this.setState({num2: this.getRandomNumber(1, 10)})
-    this.setState({topicState: '-'})
   }
 
   onStartGame2sub = () => {
-    this.setState({appState: 'active'})
+    this.initSubGame(2)
     this.setState({digitState: 2})
-    this.setState({num1: this.getRandomNumber(10, 100)})
-    this.setState({num2: this.getRandomNumber(10, 100)})
-    this.setState({topicState: '-'})
   }
 
   onStartGame3sub = () => {
-    this.setState({appState: 'active'})
+    this.initSubGame(3)
     this.setState({digitState: 3})
-    this.setState({num1: this.getRandomNumber(100, 1000)})
-    this.setState({num2: this.getRandomNumber(100, 1000)})
-    this.setState({topicState: '-'})
   }
 
   onStartGame4sub = () => {
-    this.setState({appState: 'active'})
+    this.initSubGame(4)
     this.setState({digitState: 4})
-    this.setState({num1: this.getRandomNumber(1000, 10000)})
-    this.setState({num2: this.getRandomNumber(1000, 10000)})
-    this.setState({topicState: '-'})
+  }
+
+  initDivGame = () => {
+    this.setState({appState: 'active'})
+    this.setState({topicState: '/'})
+    this.setState({note: '(ignore remainders)'})
   }
 
   onStartGame1div = () => {
     this.setState({appState: 'active'})
     this.setState({topicState: '/'})
     this.setState({digitState: 'df'})
-    //have to use updater function here, because the if statements depend on the first setstate and
-    //they are located in the same function, therefore asynchronous operations happening at the same time.
-    //react batches them together, so have to write it like this so react knows the if statements are dependant
-    //on the updated num2 state.
     this.setState({num2: this.getRandomNumber(2, 12)}, () => {
       if (this.state.num2 === 2) {
         this.setState({num1: this.state.divisionState.two[this.getRandomNumber(0,11)]})
@@ -192,34 +247,63 @@ class App extends Component {
   }
 
   onStartGame2div = () => {
-    this.setState({appState: 'active'})
-    this.setState({topicState: '/'})
+    this.initDivGame()
     this.setState({digitState: '3d1'})
     this.setState({num1: this.getRandomNumber(100, 1000)})
     this.setState({num2: this.getRandomNumber(1, 10)})
-    this.setState({note: '(ignore remainders)'})
   }
 
   onStartGame3div = () => {
-    this.setState({appState: 'active'})
-    this.setState({topicState: '/'})
+    this.initDivGame()
     this.setState({digitState: '4d1'})
     this.setState({num1: this.getRandomNumber(1000, 10000)})
     this.setState({num2: this.getRandomNumber(1, 10)})
-    this.setState({note: '(ignore remainders)'})
   }
 
   onStartGame4div = () => {
-    this.setState({appState: 'active'})
-    this.setState({topicState: '/'})
+    this.initDivGame()
     this.setState({digitState: '4d2'})
     this.setState({num1: this.getRandomNumber(1000, 10000)})
     this.setState({num2: this.getRandomNumber(10, 100)})
-    this.setState({note: '(ignore remainders)'})
+  }
+  
+  handleScoreCount = (ansCorrectOrIncorrect) => {
+    if (this.state.isSignedIn ===  true) {
+      fetch('http://localhost:3000/updateStats', {
+        method: 'put',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          id: this.state.user.id,
+          answer: ansCorrectOrIncorrect
+        })
+      })
+      .then(res => res.json())
+      .then(() => {
+        this.setState(Object.assign(this.state.user, {totalQuestionsAnswered: parseInt(this.state.user.totalQuestionsAnswered) + 1}))
+        if (ansCorrectOrIncorrect === 'correct') {
+          this.setState(Object.assign(this.state.user, {totalQuestionsCorrect: parseInt(this.state.user.totalQuestionsCorrect) + 1}))
+        } else if (ansCorrectOrIncorrect === 'incorrect') {
+          this.setState(Object.assign(this.state.user, {totalQuestionsIncorrect: parseInt(this.state.user.totalQuestionsIncorrect) + 1}))
+        }
+      })
+    } else {
+      return
+    }
+  }
+
+  raiseCorrectCount = () => {
+    this.setState({answerCorrect: "yes"})
+    this.setState({questionsCorrect: this.state.questionsCorrect + 1})
+    this.handleScoreCount('correct')
+  }
+
+  raiseIncorrectCount = () => {
+    this.setState({answerCorrect: "no"})
+    this.setState({questionsIncorrect: this.state.questionsIncorrect + 1})
+    this.handleScoreCount('incorrect')
   }
 
   onSubmitAnswer = () => {
-    //COMPARISON FUNCTIONS GO HERE WHEN YOUR ANSWER IS SUBMITTED.
     if (this.state.topicState === '+') {
       this.setState({questionAnswer: this.state.num1 + this.state.num2})
     } else if (this.state.topicState === '*') {
@@ -229,26 +313,16 @@ class App extends Component {
     } else if (this.state.topicState === '/') {
       this.setState({questionAnswer: Math.floor(this.state.num1 / this.state.num2)})
     }
-    //This part of the function is to add the points after the answer to the question is checked
     if (parseInt(this.state.userAnswer) === (this.state.num1 + this.state.num2) && this.state.topicState === '+') {
-      this.setState({answerCorrect: "yes"})
-      this.setState({score: this.state.score + 1})
-      this.setState({questionsCorrect: this.state.questionsCorrect + 1}) 
+      this.raiseCorrectCount()
     } else if (parseInt(this.state.userAnswer) === (this.state.num1 * this.state.num2) && this.state.topicState === '*') {
-      this.setState({answerCorrect: "yes"})
-      this.setState({score: this.state.score + 1})
-      this.setState({questionsCorrect: this.state.questionsCorrect + 1}) 
+      this.raiseCorrectCount()
     } else if (parseInt(this.state.userAnswer) === (Math.abs(this.state.num1 - this.state.num2)) && this.state.topicState === '-') {
-      this.setState({answerCorrect: "yes"})
-      this.setState({score: this.state.score + 1})
-      this.setState({questionsCorrect: this.state.questionsCorrect + 1})
+      this.raiseCorrectCount()
     } else if (parseInt(this.state.userAnswer) === (Math.floor(this.state.num1 / this.state.num2)) && this.state.topicState === '/') {
-      this.setState({answerCorrect: "yes"})
-      this.setState({score: this.state.score + 1})
-      this.setState({questionsCorrect: this.state.questionsCorrect + 1})
+      this.raiseCorrectCount()
     } else {
-      this.setState({answerCorrect: "no"})
-      this.setState({questionsIncorrect: this.state.questionsIncorrect + 1})
+      this.raiseIncorrectCount()
     }
   };
 
@@ -325,7 +399,6 @@ class App extends Component {
     this.setState({appState: 'menu'})
   }
 
-  //for this function literally just copy and paste default state object into this setstate function
   onQuitFunction2 = () => {
     this.setState({
       appState: 'menu',
@@ -411,19 +484,29 @@ class App extends Component {
           <h3>Answer the following questions to the best of your ability!</h3>
           <Question num1={this.state.num1} sign={this.state.topicState} num2={this.state.num2} note={this.state.note}/>
           <InputField inputChange={this.onInputChange} enterPress={this.onEnterPress}/><br/>
-          <SubmitButton submitAnswer={this.onSubmitAnswer}/>
-          <h1>score: {this.state.questionsCorrect} / {this.state.questionsCorrect + this.state.questionsIncorrect}</h1>
-          <h1>questions correct: {this.state.questionsCorrect}</h1>
-          <h1>questions incorrect: {this.state.questionsIncorrect}</h1>
+          <div>
+            <button onClick={this.onSubmitAnswer}>Submit Answer</button>
+          </div>
+          <h1>This session's score: {this.state.questionsCorrect} / {this.state.questionsCorrect + this.state.questionsIncorrect}</h1>
+          <h1>questions correct in this session: {this.state.questionsCorrect}</h1>
+          <h1>questions incorrect in this session: {this.state.questionsIncorrect}</h1>
           <QuitButton quitFunction={this.onQuitFunction}/>
         </div>
       );
     } else if (this.state.appState === 'menu') {
       return (
         <div className="App">
+          <StatsDialog 
+          showStats={this.state.showStats} 
+          closeStats={this.handleCloseStats}
+          questionsAnswered={this.state.user.totalQuestionsAnswered}
+          questionsCorrect={this.state.user.totalQuestionsCorrect}
+          questionsIncorrect={this.state.user.totalQuestionsIncorrect}/>
           <Particles className='particles' params={particlesOptions}/>
-          <h1>Welcome to MathPractice, Guest!</h1>
-          <h3>Choose a topic to practice!</h3>
+          {this.state.isSignedIn === true ? <h1>Welcome to MathPractice, {this.state.user.name}!</h1> : <h1>Welcome to MathPractice, Guest!</h1>}
+          <h2>Choose a topic to practice!</h2>
+          {this.state.isSignedIn === true ? <h3 className="maintab" onClick={this.handleStatsTabClick}>Your Lifetime Stats</h3> : null}
+          {this.state.isSignedIn === true ? <h3 className="maintab" onClick={this.handleSignOut}>Sign Out</h3> : <h3 className="maintab" onClick={this.handleSignOut}>Sign in to save your scores!</h3>}
           <div className='MenuContainer'>
             <MenuButton startGame={this.onStartGame1add} label="One Digit Addition!"/>
             <MenuButton startGame={this.onStartGame2add} label="Two Digit Addition!"/>
@@ -447,12 +530,20 @@ class App extends Component {
     } else if (this.state.appState === 'signin') {
       return (
           <div className="App">
+            <SignUpDialog 
+            handleHaveAccountClick={this.handleSignUp} 
+            signUpButton={this.handleSignUp} 
+            showSignUpDialog={this.state.showSignUpDialog}/>
             <Particles className='particles' params={particlesOptions}/>
               <h1>Welcome to MathPractice!</h1>
-              <h3>Please Log In, Register, or Continue as Guest!</h3>
+              <h3>Please Sign In, Register, or Continue as Guest!</h3>
                 <div>
                   <img src={logo} alt='' height="85px" width="auto" className="logo"/>
-                  <SignIn toMenu={this.toMenu}/>
+                  <SignIn 
+                  openRegisterDialog={this.openRegisterDialog} 
+                  toMenu={this.toMenu}
+                  loadUser={this.loadUser}
+                  handleSignInState={this.handleSignInState}/>
                 </div>
           </div>
       )
