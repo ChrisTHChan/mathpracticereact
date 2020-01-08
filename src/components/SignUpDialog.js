@@ -15,6 +15,30 @@ class SignUpDialog extends React.Component {
         }
     }
     
+    returnSnackbar = (openContent, message, closeContent) => {
+        return (
+            <Snackbar
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                }}
+                open={openContent}                    
+                >
+                    <SnackbarContent 
+                    style={{
+                        backgroundColor: 'darkred',
+                    }}
+                    message={message}
+                    action={
+                        <Button key='undo' color="inherit" size='small' onClick={closeContent}>
+                            CLOSE X
+                        </Button>
+                    } 
+                    />
+            </Snackbar>
+        )
+    }
+
     closeEmailAlreadyRegisteredSnackbar = () => {
         this.setState({emailAlreadyRegisteredSnackbar: false})
     }
@@ -88,63 +112,9 @@ class SignUpDialog extends React.Component {
                         </div>
                         <p className='haveaccounttext' onClick={this.props.handleHaveAccountClick}>Already have an account? Sign in!</p>
                         <button onClick={this.onSignUp}>Sign up!</button>
-                        <Snackbar
-                        anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'left',
-                        }}
-                        open={this.state.emailAlreadyRegisteredSnackbar}                    
-                        >
-                            <SnackbarContent 
-                            style={{
-                                backgroundColor: 'darkred',
-                            }}
-                            message='Register failed. This e-mail is already used!'
-                            action={
-                                <Button key='undo' color="inherit" size='small' onClick={this.closeEmailAlreadyRegisteredSnackbar}>
-                                    CLOSE X
-                                </Button>
-                            } 
-                            />
-                        </Snackbar>
-                        <Snackbar
-                        anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'left',
-                        }}
-                        open={this.state.fillInAllFieldsSnackbar}                    
-                        >
-                            <SnackbarContent 
-                            style={{
-                                backgroundColor: 'darkred',
-                            }}
-                            message='Register failed. Fill in all the fields!'
-                            action={
-                                <Button key='undo' color="inherit" size='small' onClick={this.closeFillInAllFieldsSnackbar}>
-                                    CLOSE X
-                                </Button>
-                            } 
-                            />
-                        </Snackbar>
-                        <Snackbar
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'left',
-                            }}
-                            open={this.state.badEmailSnackbar}                    
-                            >
-                                <SnackbarContent 
-                                style={{
-                                    backgroundColor: 'darkred',
-                                }}
-                                message='Sign in failed. Please use a proper email.'
-                                action={
-                                    <Button key='undo' color="inherit" size='small' onClick={this.closeBadEmailSnackbar}>
-                                        CLOSE X
-                                    </Button>
-                                } 
-                                />
-                        </Snackbar>
+                        {this.returnSnackbar(this.state.emailAlreadyRegisteredSnackbar, 'Register failed. This e-mail is already used!', this.closeEmailAlreadyRegisteredSnackbar)}
+                        {this.returnSnackbar(this.state.fillInAllFieldsSnackbar, 'Register failed. Fill in all the fields!', this.closeFillInAllFieldsSnackbar)}
+                        {this.returnSnackbar(this.state.badEmailSnackbar, 'Sign in failed. Please use a proper email.', this.closeBadEmailSnackbar)}
                         <Snackbar
                         anchorOrigin={{
                             vertical: 'bottom',

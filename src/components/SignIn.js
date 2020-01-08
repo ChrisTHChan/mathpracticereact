@@ -15,6 +15,30 @@ class SignIn extends Component {
         }
     }
 
+    returnSnackbar = (openContent, message, closeContent) => {
+        return (
+            <Snackbar
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                }}
+                open={openContent}                    
+                >
+                    <SnackbarContent 
+                    style={{
+                        backgroundColor: 'darkred',
+                    }}
+                    message={message}
+                    action={
+                        <Button key='undo' color="inherit" size='small' onClick={closeContent}>
+                            CLOSE X
+                        </Button>
+                    } 
+                    />
+            </Snackbar>
+        )
+    }
+
     closeBadEmailSnackbar = () => {
         this.setState({badEmailSnackbar: false})
     }
@@ -67,7 +91,6 @@ class SignIn extends Component {
                 }
             })
             .catch(error => {
-                console.log(error)
                 this.setState({loadingSnackbar: false})
                 this.setState({errorLoggingInSnackbar: true})
             })
@@ -87,82 +110,10 @@ class SignIn extends Component {
                     <button onClick={this.onSubmitSignIn}>Sign In</button>
                     <button onClick={this.props.toMenu}>Continue as Guest</button>
                     <button onClick={this.props.openRegisterDialog}>Register Now</button>
-                    <Snackbar
-                        anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'left',
-                        }}
-                        open={this.state.fillInAllFieldsSnackbar}                    
-                        >
-                            <SnackbarContent 
-                            style={{
-                                backgroundColor: 'darkred',
-                            }}
-                            message='Sign in failed. Fill in all the fields.'
-                            action={
-                                <Button key='undo' color="inherit" size='small' onClick={this.closeFillInAllFieldsSnackbar}>
-                                    CLOSE X
-                                </Button>
-                            } 
-                            />
-                    </Snackbar>
-                    <Snackbar
-                        anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'left',
-                        }}
-                        open={this.state.badEmailSnackbar}                    
-                        >
-                            <SnackbarContent 
-                            style={{
-                                backgroundColor: 'darkred',
-                            }}
-                            message='Sign in failed. Please use a proper email.'
-                            action={
-                                <Button key='undo' color="inherit" size='small' onClick={this.closeBadEmailSnackbar}>
-                                    CLOSE X
-                                </Button>
-                            } 
-                            />
-                    </Snackbar>
-                    <Snackbar
-                        anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'left',
-                        }}
-                        open={this.state.couldntFindUserSnackbar}                    
-                        >
-                            <SnackbarContent 
-                            style={{
-                                backgroundColor: 'darkred',
-                            }}
-                            message='Incorrect e-mail or password. Try again.'
-                            action={
-                                <Button key='undo' color="inherit" size='small' onClick={this.closeCouldntFindUserSnackbar}>
-                                    CLOSE X
-                                </Button>
-                            } 
-                            />
-                    </Snackbar>
-                    <Snackbar
-                        anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'left',
-                        }}
-                        open={this.state.errorLoggingInSnackbar}                    
-                        >
-                            <SnackbarContent 
-                            style={{
-                                backgroundColor: 'darkred',
-                            }}
-                            message='Error signing in, try again please.'
-                            action={
-                                <Button key='undo' color="inherit" size='small' onClick={this.closeErrorLoggingInSnackbar}>
-                                    CLOSE X
-                                </Button>
-                            } 
-                            />
-                    </Snackbar>
+                    {this.returnSnackbar(this.state.fillInAllFieldsSnackbar, 'Sign in failed. Fill in all the fields.', this.closeFillInAllFieldsSnackbar)}
+                    {this.returnSnackbar(this.state.badEmailSnackbar, 'Sign in failed. Please use a proper email.', this.closeBadEmailSnackbar)}
+                    {this.returnSnackbar(this.state.couldntFindUserSnackbar, 'Incorrect e-mail or password. Try again.', this.closeCouldntFindUserSnackbar)}
+                    {this.returnSnackbar(this.state.errorLoggingInSnackbar, 'Error signing in, try again please.', this.closeErrorLoggingInSnackbar)}
                     <Snackbar
                         anchorOrigin={{
                             vertical: 'bottom',
