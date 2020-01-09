@@ -70,7 +70,7 @@ class SignUpDialog extends React.Component {
             this.setState({badEmailSnackbar: true})
         } else {
             this.setState({loadingSnackbar: true})
-            fetch('http://localhost:3000/signup', {
+            fetch('https://young-dusk-54635.herokuapp.com/signup', {
                 method: 'post',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({

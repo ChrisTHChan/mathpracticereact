@@ -70,7 +70,7 @@ class SignIn extends Component {
             this.setState({badEmailSnackbar: true})
         } else {
             this.setState({loadingSnackbar: true})
-            fetch('http://localhost:3000/signin', {
+            fetch('https://young-dusk-54635.herokuapp.com/signin', {
                 method: 'post',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({

@@ -76,9 +76,9 @@ class App extends Component {
       id: data.id,
       name: data.name,
       email: data.email,
-      totalQuestionsAnswered: data.questionsAnswered,
-      totalQuestionsCorrect: data.questionsCorrect,
-      totalQuestionsIncorrect: data.questionsIncorrect,
+      totalQuestionsAnswered: data.questionsanswered,
+      totalQuestionsCorrect: data.questionscorrect,
+      totalQuestionsIncorrect: data.questionsincorrect,
     }})
   }
 
@@ -269,7 +269,7 @@ class App extends Component {
   
   handleScoreCount = (ansCorrectOrIncorrect) => {
     if (this.state.isSignedIn ===  true) {
-      fetch('http://localhost:3000/updateStats', {
+      fetch('https://young-dusk-54635.herokuapp.com/updateStats', {
         method: 'put',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
