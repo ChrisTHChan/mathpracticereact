@@ -1,19 +1,27 @@
 {
   "files": {
-    "main.css": "/mathpracticereact/static/css/main.a246a669.chunk.css",
-    "main.js": "/mathpracticereact/static/js/main.4cf14ef0.chunk.js",
-    "main.js.map": "/mathpracticereact/static/js/main.4cf14ef0.chunk.js.map",
-    "runtime~main.js": "/mathpracticereact/static/js/runtime~main.f9c18a1f.js",
-    "runtime~main.js.map": "/mathpracticereact/static/js/runtime~main.f9c18a1f.js.map",
-    "static/js/2.43e1e937.chunk.js": "/mathpracticereact/static/js/2.43e1e937.chunk.js",
-    "static/js/2.43e1e937.chunk.js.map": "/mathpracticereact/static/js/2.43e1e937.chunk.js.map",
+    "main.css": "/mathpracticereact/static/css/main.9a54780b.chunk.css",
+    "main.js": "/mathpracticereact/static/js/main.0cc8d915.chunk.js",
+    "main.js.map": "/mathpracticereact/static/js/main.0cc8d915.chunk.js.map",
+    "runtime-main.js": "/mathpracticereact/static/js/runtime-main.0260bd28.js",
+    "runtime-main.js.map": "/mathpracticereact/static/js/runtime-main.0260bd28.js.map",
+    "static/js/2.17d26050.chunk.js": "/mathpracticereact/static/js/2.17d26050.chunk.js",
+    "static/js/2.17d26050.chunk.js.map": "/mathpracticereact/static/js/2.17d26050.chunk.js.map",
     "index.html": "/mathpracticereact/index.html",
-    "precache-manifest.1de0ca059de159386ff39cf8b770474b.js": "/mathpracticereact/precache-manifest.1de0ca059de159386ff39cf8b770474b.js",
+    "precache-manifest.2adec49052bcaf5417f0e18aba9c9487.js": "/mathpracticereact/precache-manifest.2adec49052bcaf5417f0e18aba9c9487.js",
     "service-worker.js": "/mathpracticereact/service-worker.js",
-    "static/css/main.a246a669.chunk.css.map": "/mathpracticereact/static/css/main.a246a669.chunk.css.map",
+    "static/css/main.9a54780b.chunk.css.map": "/mathpracticereact/static/css/main.9a54780b.chunk.css.map",
+    "static/js/2.17d26050.chunk.js.LICENSE": "/mathpracticereact/static/js/2.17d26050.chunk.js.LICENSE",
     "static/media/columnaddimg.svg": "/mathpracticereact/static/media/columnaddimg.7cec698a.svg",
+    "static/media/div1.gif": "/mathpracticereact/static/media/div1.8371b7f7.gif",
     "static/media/minusborrow.png": "/mathpracticereact/static/media/minusborrow.9082fd9d.png",
     "static/media/mult1.gif": "/mathpracticereact/static/media/mult1.f89a1e18.gif",
     "static/media/multtable.jpg": "/mathpracticereact/static/media/multtable.1898e1fd.jpg"
-  }
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0260bd28.js",
+    "static/js/2.17d26050.chunk.js",
+    "static/css/main.9a54780b.chunk.css",
+    "static/js/main.0cc8d915.chunk.js"
+  ]
 }
